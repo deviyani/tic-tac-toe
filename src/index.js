@@ -14,12 +14,15 @@ function Square(props) {
 class Board extends React.Component {
     constructor(props) {
         super(props);
+        
         this.state = {
+            //an array of 9 elements is created with null originally
             Squares: Array(9).fill(null),
+            //toggle between 'X' and 'O'
             xIsNext: true
         }
     }
-
+//function for handling what happens when a particular box is clicked 
     handleClick(i) {
         const squares = this.state.Squares.slice();
         if (calculateWinner(squares) || squares[i]) {
@@ -34,8 +37,10 @@ class Board extends React.Component {
     }
 
     render() {
+        //check if the game is won
         const winner = calculateWinner(this.state.Squares);
         let status;
+        //set the status if game is over or is to be continued and whose turn is it.
         if (winner) {
             status = 'Winner: ' + winner;
         } else {
@@ -81,6 +86,7 @@ class Game extends React.Component {
     }
 }
 function calculateWinner(squares) {
+    //list of possible combinations when game is won
     const lines = [
         [0, 1, 2],
         [3, 4, 5],
@@ -93,6 +99,7 @@ function calculateWinner(squares) {
     ];
     for (let i = 0; i < lines.length; i++) {
         const [a, b, c] = lines[i];
+        //checking if any of these possible combinations has been satisfied 
         if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
             return squares[a];
         }
